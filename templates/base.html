@@ -1,0 +1,127 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="shortcut icon" href="{% static 'images/favicon.png'%}" type="">
+
+  <title> Feane </title>
+  {% include 'components/_stayle.html' %}
+
+</head>
+
+<body>
+
+  {% if request.path == '/' %}
+  {% include 'components/_navbar.html' %}
+  {% else %}
+  {% include 'components/_navbar_other.html' %}
+  {% endif %}
+  {% block content %}
+
+  {% endblock content %}
+
+  <!-- footer section -->
+  <footer class="footer_section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 footer-col">
+          <div class="footer_contact">
+            <h4>
+              Contact Us
+            </h4>
+            <div class="contact_link_box">
+              <a href="">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <span>
+                  Location
+                </span>
+              </a>
+              <a href="">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <span>
+                  Call +99 235 55 66
+                </span>
+              </a>
+              <a href="">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+                <span>
+                  islombekortiqovv@gmail.com
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 footer-col">
+          <div class="footer_detail">
+            <a href="" class="footer-logo">
+              Feane
+            </a>
+            <p>
+              Haqiqiy mazali taomlar siri — bizning o'ziga xos retseptlarimizda!  Sifat va lazzat — bizning oliy maqsadimiz
+            </p>
+            <div class="footer_social">
+              <a href="">
+                <i class="fa fa-facebook" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-twitter" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-linkedin" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-instagram" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-pinterest" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 footer-col">
+          <h4>
+            Opening Hours
+          </h4>
+          <p>
+            Har kuni
+          </p>
+          <p>
+            10.00 Am -10.00 Pm
+          </p>
+        </div>
+      </div>
+      <div class="footer-info">
+        <p>
+          &copy; <span id="displayYear"></span> Barcha huquqlar himoyalangan |
+          <strong>Feone Restaurant</strong><br><br>
+
+          Loyiha muallifi:
+          <a href="https://t.me/Islombek_Ortiqov" target="_blank"
+            style="color: #ffbe33; font-weight: bold;">Islombek</a>
+          tomonidan tayyorlandi
+        </p>
+
+        <script>
+          
+          document.getElementById('displayYear').innerHTML = new Date().getFullYear();
+        </script>
+      </div>
+    </div>
+  </footer>
+  <!-- footer section -->
+
+
+  {% include 'components/_script.html' %}
+</body>
+
+</html>

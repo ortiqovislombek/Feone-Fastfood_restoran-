@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+  
+
+<section class="book_section layout_padding">
+  <div class="container">
+    <div class="heading_container heading_center">
+      <h2 class="order_list_title">Mening buyurtmalarim</h2>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="order_table_container">
+          <table class="table custom_order_table">
+            <thead>
+              <tr>
+                <th>Rasm</th>
+                <th>Mahsulot</th>
+                <th>Soni</th>
+                <th>Jami narx</th>
+                <th>Sana</th>
+                <th>Holat</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for order in orders %}
+              <tr>
+                <td>
+                  <img src="{{ order.product.image.url }}" class="order_img_thumb" alt="">
+                </td>
+                <td>
+                  <span class="order_product_name">{{ order.product.title }}</span>
+                </td>
+                <td>{{ order.quantity }} dona</td>
+                <td class="order_price">${{ order.total_price }}</td>
+                <td>{{ order.created_at|date:"d.m.Y H:i" }}</td>
+                <td>
+                  <span class="status_badge badge_pending">Tayyorlanmoqda</span>
+                </td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td colspan="6" class="text-center py-5">
+                  <h4 style="color: #666;">Sizda hali buyurtmalar yo'q.</h4>
+                  <a href="{% url 'menu' %}" class="btn_buy_now">Menyuni ko'rish</a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .order_list_title {
+    margin-bottom: 40px;
+    text-align: center;
+  }
+
+  .order_table_container {
+    background-color: #222831;
+    padding: 20px;
+    border-radius: 15px;
+    overflow-x: auto; /* Mobil qurilmalar uchun */
+  }
+
+  .custom_order_table {
+    color: white;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+  }
+
+  .custom_order_table thead th {
+    border-bottom: 2px solid #ffbe33;
+    color: #ffbe33;
+    font-family: 'Dancing Script', cursive;
+    font-size: 20px;
+    padding: 15px;
+    text-align: left;
+  }
+
+  .custom_order_table tbody tr {
+    background-color: #2c343f;
+    transition: transform 0.2s;
+  }
+
+  .custom_order_table tbody tr:hover {
+    transform: scale(1.01);
+  }
+
+  .custom_order_table td {
+    padding: 15px;
+    vertical-align: middle;
+    border: none;
+  }
+
+  /* Mahsulot rasmi kichik ko'rinishi */
+  .order_img_thumb {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #ffbe33;
+  }
+
+  .order_product_name {
+    font-weight: 600;
+  }
+
+  .order_price {
+    color: #ffbe33;
+    font-weight: bold;
+  }
+
+  /* Status belgilari */
+  .status_badge {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  .badge_pending {
+    background-color: #ffbe33;
+    color: #222831;
+  }
+
+  /* Bo'sh holat uchun tugma */
+  .btn_buy_now {
+    display: inline-block;
+    padding: 10px 30px;
+    background-color: #ffbe33;
+    color: white;
+    border-radius: 45px;
+    margin-top: 20px;
+    text-decoration: none;
+    transition: 0.3s;
+  }
+
+  .btn_buy_now:hover {
+    background-color: white;
+    color: #ffbe33;
+  }
+</style>
+{% endblock content %}

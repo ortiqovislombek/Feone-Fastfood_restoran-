@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="book_section layout_padding">
+  <div class="container">
+    <div class="heading_container">
+      <h2 class="checkout_title">Buyurtmani rasmiylashtirish</h2>
+    </div>
+
+    <form id="purchase-form" method="POST" action="">
+      {% csrf_token %}
+      
+      <input type="hidden" name="product_id" value="{{ products.id }}">
+      <input type="hidden" name="product_name" value="{{ products.title }}">
+      <input type="hidden" name="unit_price" value="{{ products.price }}">
+      <input type="hidden" name="quantity" id="hidden_qty" value="1">
+      <input type="hidden" name="total_price" id="hidden_total" value="{{ products.price }}">
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form_container">
+            <div>
+              <input type="text" name="customer_name" class="form-control" placeholder="To'liq ismingiz" required />
+            </div>
+            <div>
+              <input type="text" name="customer_phone" class="form-control" placeholder="Telefon raqamingiz" required />
+            </div>
+            <div>
+              <input type="text" name="shipping_address" class="form-control" placeholder="Yetkazib berish manzili" required />
+            </div>
+            <div>
+              <select name="payment_method" class="form-control nice-select wide">
+           
+                <option value="" disabled selected>To'lov turini tanlang</option>
+                <option value="cash">Naqd pul</option>
+                <option value="card">Click / Payme</option>
+              </select>
+                  {% if error %}
+                    <p style="color:red">{{ error }}</p>
+                  {% endif %}
+            </div>
+            <div class="btn_box">
+              <button type="submit">Buyurtmani tasdiqlash</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="cart_summary_box">
+            <h4 class="summary_title">Sizning tanlovingiz</h4>
+            
+            <div class="product_detail_row">
+              <img src="{{ products.image.url }}" id="item-img" alt="Product" class="checkout_img">
+              <div class="product_text">
+                <h5 id="item-title">{{ products.title }}</h5>
+                <p class="unit_price">$<span id="item-price">{{ products.price }}</span> / dona</p>
+              </div>
+            </div>
+
+            <div class="quantity_wrapper">
+              <p>Soni:</p>
+              <div class="qty_controls">
+                <button type="button" class="qty_btn" onclick="updateQty(-1)">-</button>
+                <span id="qty_val">1</span>
+                <button type="button" class="qty_btn" onclick="updateQty(1)">+</button>
+              </div>
+            </div>
+
+            <div class="total_wrapper">
+              <div class="total_flex">
+                <h5>Jami summa:</h5>
+                <h3 class="final_price">$<span id="total_price">{{ products.price }}</span></h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<script>
+
+  let pricePerItem = parseFloat("{{ products.price }}".replace(',', '.'));
+  let currentQty = 1;
+
+  function updateQty(change) {
+    currentQty += change;
+    if (currentQty < 1) currentQty = 1;
+    
+  
+    document.getElementById('qty_val').innerText = currentQty;
+    
+
+    let total = (pricePerItem * currentQty).toFixed(2);
+    
+    
+    document.getElementById('total_price').innerText = total;
+
+  
+    document.getElementById('hidden_qty').value = currentQty;
+    document.getElementById('hidden_total').value = total;
+  }
+</script>
+
+<style>
+
+  .cart_summary_box { background-color: #222831; padding: 30px; border-radius: 15px; color: #fff; }
+  .summary_title { font-family: 'Dancing Script', cursive; color: #ffbe33; margin-bottom: 25px; }
+  .product_detail_row { display: flex; align-items: center; border-bottom: 1px solid #444; padding-bottom: 20px; }
+  .checkout_img { width: 100px; height: 100px; object-fit: cover; border-radius: 10px; margin-right: 20px; border: 2px solid #ffbe33; }
+  .qty_btn { background-color: #ffbe33; color: #fff; border: none; width: 35px; height: 35px; border-radius: 5px; cursor: pointer; }
+  .unit_price, .final_price { color: #ffbe33; }
+  .total_flex { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; border-top: 1px solid #444; padding-top: 20px;}
+</style>
+{% endblock %}
