@@ -1,10 +1,11 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
 
 
 from .models import HeroSlider, Category, Product, Feedback, Order
 
-
+@login_required(login_url='/account/login/')
 def home(request: HttpRequest):
     sliders = HeroSlider.objects.filter(published=True)
     categories = Category.objects.all()
@@ -21,7 +22,7 @@ def home(request: HttpRequest):
 
     return render(request, "index.html", context=context)
 
-
+@login_required(login_url='/account/login/')
 def menu(request: HttpRequest):
     categories = Category.objects.all()
     products = Product.objects.filter(is_active=True)
@@ -32,17 +33,17 @@ def menu(request: HttpRequest):
 
     return render(request, "menu.html", context=context)
 
-
+@login_required(login_url='/account/login/')
 def about(request: HttpRequest):
 
     return render(request, "about.html")
 
-
+@login_required(login_url='/account/login/')
 def book(request: HttpRequest):
 
     return render(request, "book.html")
 
-
+@login_required(login_url='/account/login/')
 def chekout(request: HttpRequest, pk: int):
     products = Product.objects.get(pk=pk)
 
@@ -79,7 +80,7 @@ def chekout(request: HttpRequest, pk: int):
     }
     return render(request, "checkout.html", context=context)
 
-
+@login_required(login_url='/account/login/')
 def orders(request: HttpRequest):
     orders = Order.objects.order_by("-created_at")
 

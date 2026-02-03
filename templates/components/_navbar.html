@@ -102,6 +102,82 @@
               <a href="" class="order_online">
                 Order Online
               </a>
+
+                 <div class="user_option">
+              {% if user.is_authenticated %}
+              <a href="{% url 'logout' %}" class="user_link logout-btn" title="Logout">
+                <i class="fa fa-sign-out-alt"></i> Logout
+              </a>
+              {% else %}
+              <a href="{% url 'login' %}" class="user_link login-btn" title="Login">
+                <i class="fa fa-user"></i> Login
+              </a>
+              {% endif %}
+            </div>
+
+            <style>
+             
+
+              /* ===== Feone Luxury Dark & Gold Tugmalar ===== */
+              .user_option .user_link {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                padding: 10px 20px;
+                border-radius: 12px;
+                font-weight: 600;
+                font-size: 14px;
+                text-decoration: none;
+                color: #f5f6f6;
+                /* Matn qora gradient ustida ko‘rinadigan */
+                transition: all 0.3s ease;
+                box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+                border: 1px solid #2a2e38;
+                /* Chegara */
+
+              }
+
+              /* Login tugmasi (Oltin gradient) */
+              .user_option .login-btn {
+                background: linear-gradient(45deg, #ffbe33, #e69b00);
+              }
+
+              .user_option .login-btn:hover {
+                background: linear-gradient(45deg, #e69b00, #ffbe33);
+                transform: translateY(-2px);
+                box-shadow: 0 5px 12px rgba(255, 190, 51, 0.5);
+              }
+
+              /* Logout tugmasi (Endi asosiy gradient rang) */
+              .user_option .logout-btn {
+                background: linear-gradient(45deg, #ffbe33, #e69b00);
+                color: #0f1116;
+                /* Matn qora */
+              }
+
+              .user_option .logout-btn:hover {
+                /* Faqat box-shadow */
+                box-shadow: 0 5px 12px rgba(255, 190, 51, 0.5);
+                transform: translateY(-2px);
+              }
+
+              /* Ikonlar */
+              .user_option .user_link i {
+                font-size: 16px;
+              }
+
+              /* Kichik ekranlar uchun */
+              @media (max-width: 768px) {
+                .user_option .user_link {
+                  padding: 8px 14px;
+                  font-size: 13px;
+                }
+
+                .user_option .user_link i {
+                  font-size: 14px;
+                }
+              }
+            </style>
             </div>
           </div>
         </nav>
