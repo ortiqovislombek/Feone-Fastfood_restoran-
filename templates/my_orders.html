@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 
-  
+
 
 <section class="book_section layout_padding">
   <div class="container">
@@ -37,7 +37,13 @@
                 <td class="order_price">${{ order.total_price }}</td>
                 <td>{{ order.created_at|date:"d.m.Y H:i" }}</td>
                 <td>
+                  {% if order.status == 'tayyorlanmoqda' %}
                   <span class="status_badge badge_pending">Tayyorlanmoqda</span>
+                  {% elif order.status == 'yetkazildi' %}
+                  <span class="status_badge badge_delivered">Yetkazildi</span>
+                  {% elif order.status == 'bekor_qilindi' %}
+                  <span class="status_badge badge_cancel">Bekor qilindi</span>
+                  {% endif %}
                 </td>
               </tr>
               {% empty %}
@@ -57,6 +63,29 @@
 </section>
 
 <style>
+  .status_badge {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.badge_pending {
+    background-color: #ffbe33;
+    color: #222831;
+}
+
+.badge_delivered {
+    background-color: #28a745; /* yashil */
+    color: white;
+}
+
+.badge_cancel {
+    background-color: #dc3545; /* qizil */
+    color: white;
+}
+
   .order_list_title {
     margin-bottom: 40px;
     text-align: center;
@@ -66,7 +95,8 @@
     background-color: #222831;
     padding: 20px;
     border-radius: 15px;
-    overflow-x: auto; /* Mobil qurilmalar uchun */
+    overflow-x: auto;
+    /* Mobil qurilmalar uchun */
   }
 
   .custom_order_table {

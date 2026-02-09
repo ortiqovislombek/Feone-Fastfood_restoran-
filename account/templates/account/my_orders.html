@@ -1,0 +1,137 @@
+{% extends 'account/base.html' %}
+{% load static %}
+
+
+
+{% block account %}
+
+<section class="account_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 mb-4">
+                <div class="account_sidebar">
+                    <div class="text-center">
+                        {% if user.avatar %}
+                        <div class="img_container"><img src="{{user.avatar.url}}" alt="Islombek"></div>
+                        {% else %}
+                        <div class="img_container"><img
+                                src="https://ih1.redbubble.net/image.4905811472.8675/st,extra_large,507x507-pad,600x600,f8f8f8.jpg"
+                                alt="Islombek"></div>
+                        {% endif %}
+                        {% if user.is_superuser == True %}
+                        <h4 class="mt-2">{{user.username}} (Admin) </h4>
+                        {% else %}
+                        <h4 class="mt-2">{{user.username}} </h4>
+                        {%endif%}
+                        <p class="small text-muted">
+                            A'zolik: {{ user.date_joined|date:"Y, d F H:i" }}
+                        </p>
+                    </div>
+                    <nav class="account_menu mt-4">
+                        <a href="{% url 'profil' %}"><i class="fas fa-id-card"></i> Asosiy ma'lumotlar</a>
+                        {% if user.is_staff == True %}
+                        <a href="{% url 'admin' %}"><i class="fas fa-shopping-bag"></i> Mahsulotlar</a>
+                        {% else %}
+                        <a href="{% url 'order' %}" class="active"><i class="fas fa-shopping-bag"></i> Buyurtmalar
+                            tarixi</a>
+                        {% endif %}
+                        <a href="{% url 'security' %}"><i class="fas fa-user-shield"></i> Xavfsizlik markazi</a>
+                        <a href="#" class="text-danger mt-5"><i class="fas fa-power-off"></i> Chiqish</a>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                <div class="account_content">
+                    <div class="content_box">
+                        <h4>Mening buyurtmalarim</h4>
+
+                        <div class="table-responsive order_table_container">
+                            <table class="table custom_order_table">
+                                <thead>
+                                    <tr>
+                                        <th>Rasm</th>
+                                        <th>Mahsulot</th>
+                                        <th>Soni</th>
+                                        <th>Narx</th>
+                                        <th>Sana</th>
+                                        <th>Holat</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    {% for order in orders %}
+                                    <tr>
+                                        <td>
+                                            {% if order.product.image %}
+                                            <img src="{{ order.product.image.url }}" alt="{{ order.product.title }}"
+                                                style="width: 80px;">
+                                            {% else %}
+                                            <img src="https://ih1.redbubble.net/image.4905811472.8675/st,extra_large,507x507-pad,600x600,f8f8f8.jpg"
+                                                alt="No image" style="width: 80px;">
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <span class="order_product_name">{{order.product.title}}</span>
+                                        </td>
+                                        <td>{{order.quantity}}</td>
+                                        <td class="order_price">{{order.total_price}} so'm</td>
+                                        <td>{{ order.created_at|date:"d.m.Y" }}
+                                        </td>
+                                        <td>
+
+                                            {% if order.status == 'tayyorlanmoqda' %}
+                                            <span class="status_badge badge_pending">Tayyorlanmoqda</span>
+                                            {% elif order.status == 'yetkazildi' %}
+                                            <span class="status_badge badge_delivered">Yetkazildi</span>
+                                            {% elif order.status == 'bekor_qilindi' %}
+                                            <span class="status_badge badge_cancel">Bekor qilindi</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+
+
+
+                                   
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<style>
+    /* Status badge umumiy uslubi */
+    .status_badge {
+        display: inline-block;
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #fff;
+        text-align: center;
+        min-width: 100px;
+        text-transform: uppercase;
+        transition: 0.3s;
+    }
+
+    /* Tayyorlanmoqda — sariq rang */
+    .badge_pending {
+        background-color: #f0ad4e;
+    }
+
+    /* Yetkazildi — yashil rang */
+    .badge_delivered {
+        background-color: #5cb85c;
+    }
+
+    /* Bekor qilindi — qizil rang */
+    .badge_cancel {
+        background-color: #d9534f;
+    }
+</style>
+{% endblock account %}

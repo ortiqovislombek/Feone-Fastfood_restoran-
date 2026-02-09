@@ -1,0 +1,135 @@
+{% extends 'account/base.html' %}
+{% load static %}
+
+
+
+{% block account %}
+
+
+
+
+<section class="account_section">
+  
+    <div class="container">
+         
+        <div class="row">
+            
+            <div class="col-lg-4 mb-4">
+                <div class="account_sidebar">
+                    <div class="text-center">
+                        {% if user.avatar %}
+                        <div class="img_container"><img src="{{user.avatar.url}}" alt="Islombek"></div>
+                        {% else %}
+                        <div class="img_container"><img src="https://ih1.redbubble.net/image.4905811472.8675/st,extra_large,507x507-pad,600x600,f8f8f8.jpg" alt="Islombek"></div>
+                        {% endif %}
+                        
+                        {% if user.is_superuser == True %}
+                        <h4 class="mt-2">{{user.username}} (Admin) </h4>
+                        {% else %}
+                        <h4 class="mt-2">{{user.username}} </h4>
+                        {%endif%}
+                        <p class="small text-muted">
+                            A'zolik: {{ user.date_joined|date:"Y, d F H:i" }}
+                        </p>
+
+                    </div>
+
+                    <nav class="account_menu mt-4">
+                        <a href="{% url 'profil' %}" class="active"><i class="fas fa-id-card"></i> Asosiy
+                            ma'lumotlar</a>
+                        {% if user.is_superuser == True %}
+                        <a href="{% url 'admin' %}"><i class="fas fa-shopping-bag"></i> Mahsulotlar</a>
+                        {% else %}
+                        <a href="{% url 'order' %}"><i class="fas fa-shopping-bag"></i> Buyurtmalar tarixi</a>
+                        {% endif %}
+                        <a href="{% url 'security' %}"><i class="fas fa-user-shield"></i> Xavfsizlik markazi</a>
+                        <a href="{% url 'logout' %}" class="text-danger mt-5"><i class="fas fa-power-off"></i> Chiqish</a>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                {% if messages %}
+                    <div class="messages">
+                        {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <div class="account_content">
+                    <div class="content_box">
+                        <h4>Shaxsiy ma'lumotlar</h4>
+                        <form id="profile_form" method="post">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label>Ism </label>
+                                    <input type="text" class="form-control" name="first_name" value="{{user.first_name}}">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label>Foydalanuvchi nomi (@username)</label>
+                                    <input type="text" class="form-control" name="username" value="{{user.username}}">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label>Email manzil</label>
+                                    <input type="email" class="form-control" name="email" value="{{user.email}}">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label>Telefon raqam</label>
+                                    <input type="text" class="form-control" name="phone" value="+{{user.phone}}">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label>Tug'ilgan sana</label>
+                                    <input type="date" class="form-control" name="birth_date" value="{{ user.birth_date|date:'Y-m-d' }}">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label>Jins</label>
+                                    <select class="form-control" name="gender">
+                                        <option value="M" {% if user.gender == "M" %}selected{% endif %}>Erkak</option>
+                                        <option value="F" {% if user.gender == "F" %}selected{% endif %}>Ayol</option>
+                                        <option value="O" {% if user.gender == "O" %}selected{% endif %}>Boshqa</option>
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Bio (O'zingiz haqingizda qisqacha)</label>
+                                <textarea class="form-control" name="description" style="height: 100px;">{{user.description}}</textarea>
+                            </div>
+                            <div class="text-right mt-4">
+                                <button type="submit" class="save_btn">O'zgarishlarni saqlash</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    // 3 soniya o'tgach xabarni yo'qotish
+    window.addEventListener('DOMContentLoaded', function() {
+        // Barcha xabarlarni olish
+        const messages = document.querySelectorAll('.messages .alert');
+        
+        messages.forEach(function(message) {
+            setTimeout(function() {
+                // Xabarni yo'qotish
+                message.style.transition = "opacity 0.5s ease-out";
+                message.style.opacity = 0;
+
+                // Xabarni 3 soniya o'tgach butunlay yashirish
+                setTimeout(function() {
+                    message.style.display = "none";
+                }, 500);  // 0.5 soniya (transition va opacity o'zgarishi)
+            }, 3000);  // 3 soniya kutish
+        });
+    });
+</script>
+{% endblock account %}

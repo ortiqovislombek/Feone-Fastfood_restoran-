@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.conf import settings
 class HeroSlider(models.Model):
     title=models.CharField(max_length=100)
     content=models.TextField()
@@ -30,17 +30,34 @@ class Product(models.Model):
         return self.title
 
 class Feedback(models.Model):
-    name = models.CharField(max_length=100)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='feedbacks',
+        
+        null=True,
+        blank=True,
+    )
     comment = models.TextField()
-    image = models.ImageField(upload_to='images/clients/')
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.name
+        return self.comment
     
     
 class Order(models.Model):
-   
+    STATUS_TANLOVLARI = (
+        ('tayyorlanmoqda', 'Tayyorlanmoqda'),
+        ('yetkazildi', 'Yetkazildi'),
+        ('bekor_qilindi', 'Bekor qilindi'),
+    )
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='orders',
+        null=True,        
+        blank=True,
+    )
     full_name = models.CharField(max_length=200)
     phone = models.CharField(max_length=20)
     address = models.TextField()
@@ -48,7 +65,12 @@ class Order(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
     total_price = models.DecimalField(max_digits=10, decimal_places=2)
-    
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_TANLOVLARI,
+        default='tayyorlanmoqda',
+        
+    )
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

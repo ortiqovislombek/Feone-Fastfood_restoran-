@@ -58,6 +58,7 @@ def chekout(request: HttpRequest, pk: int):
 
         if payment_method:
             Order.objects.create(
+                user=request.user,
                 product=products,
                 full_name=full_name,
                 phone=phone,
@@ -82,7 +83,8 @@ def chekout(request: HttpRequest, pk: int):
 
 @login_required(login_url='/account/login/')
 def orders(request: HttpRequest):
-    orders = Order.objects.order_by("-created_at")
+    orders = Order.objects.filter(user=request.user).order_by('-created_at')
+
 
     context = {
         "orders": orders,

@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Mahsulot qo‘shish</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{% static 'css/form.css' %}">
+</head>
+
+<body>
+
+    <div class="card">
+        <h2>🛒 Mahsulotni Taxrirlash </h2>
+
+        <form id="productForm"  method="post" enctype="multipart/form-data" action="{% url 'edit_product' products.id %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>Mahsulot nomi</label>
+                <input type="text" id="title" name='title' value='{{products.title}}' required>
+            </div>
+
+            <div class="form-group">
+                <label>Tavsif</label>
+                <textarea id="description" name="description" rows="4">{{products.description}}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Rasm</label>
+                <input type="file" id="image" name="image" accept="image/*">
+                <div class="preview mt-2">
+                    {% if products.image %}
+                    <img id="previewImg" src="{{ products.image.url }}" alt="Mahsulot rasm" style="max-width:150px;">
+                    {% else %}
+                    <img id="previewImg" src="{% static 'images/placeholder.png' %}" alt="Preview"
+                        style="max-width:150px;">
+                    {% endif %}
+                </div>
+
+            </div>
+
+
+            <div class="row">
+                <div class="form-group">
+                    <label>Narxi</label>
+                    <input type="number" id="price" name="price" value="{{products.price}}">
+                </div>
+
+                <div class="form-group">
+                    <label>Chegirma (%)</label>
+                    <input type="number" id="discount" name="discount" value="{{products.discount}}">
+                </div>
+            </div>
+
+           <div class="form-group">
+        <label>Kategoriya</label>
+        <select id="category" name="category" class="form-control" required>
+            <option value="">Tanlang</option>
+            {% for cat in categorys %}
+                <option value="{{ cat.id }}" {% if products.category and products.category.id == cat.id %}selected{% endif %}>
+                    {{ cat.title }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+
+            <div class="checkbox" >
+                <input type="checkbox" id="isActive"  name="is_active" checked>
+                <label for="isActive">Faol</label>
+            </div>
+
+            <button type="submit" class="btn">Saqlash</button>
+        </form>
+    </div>
+
+    {% comment %} <script>
+        document.getElementById('image').addEventListener('change', function (e) {
+            const [file] = this.files;
+            if (file) {
+                document.getElementById('previewImg').src = URL.createObjectURL(file);
+            }
+        });
+    </script> {% endcomment %}
+
+
+    <script src="{% static 'css/form.js' %}"></script>
+</body>
+
+</html>

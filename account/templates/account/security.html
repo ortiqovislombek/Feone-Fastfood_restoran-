@@ -1,0 +1,110 @@
+{% extends 'account/base.html' %}
+{% load static %}
+
+
+
+{% block account %}
+
+
+<button class="theme-btn" id="themeSwitch">
+    <i class="fas fa-moon"></i>
+</button>
+
+<section class="account_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 mb-4">
+                <div class="account_sidebar">
+                    <div class="text-center">
+                        {% if user.avatar %}
+                        <div class="img_container"><img src="{{user.avatar.url}}" alt="Islombek"></div>
+                        {% else %}
+                        <div class="img_container"><img
+                                src="https://ih1.redbubble.net/image.4905811472.8675/st,extra_large,507x507-pad,600x600,f8f8f8.jpg"
+                                alt="Islombek"></div>
+                        {% endif %}
+                        {% if user.is_superuser == True %}
+                        <h4 class="mt-2">{{user.username}} (Admin) </h4>
+                        {% else %}
+                        <h4 class="mt-2">{{user.username}} </h4>
+                        {%endif%}
+                        <p class="small text-muted">
+                            A'zolik: {{ user.date_joined|date:"Y, d F H:i" }}
+                        </p>
+                    </div>
+                    <nav class="account_menu mt-4">
+                        <a href="{% url 'profil' %}"><i class="fas fa-id-card"></i> Asosiy ma'lumotlar</a>
+                        {% if user.is_staff == True %}
+                        <a href="{% url 'admin' %}"><i class="fas fa-shopping-bag"></i> Mahsulotlar</a>
+                        {% else %}
+                        <a href="{% url 'order' %}"><i class="fas fa-shopping-bag"></i> Buyurtmalar tarixi</a>
+                        {% endif %}
+                        <a href="{% url 'security' %}" class="active"><i class="fas fa-user-shield"></i> Xavfsizlik
+                            markazi</a>
+                        <a href="{% url 'logout' %}" class="text-danger mt-5"><i class="fas fa-power-off"></i>
+                            Chiqish</a>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                <div class="account_content">
+                    <div class="content_box">
+                        <h4>Xavfsizlik va Kirish</h4>
+
+                        <div class="security_item">
+                            <h5><i class="fas fa-key mr-2"></i> Parolni yangilash</h5>
+                            <form class="mt-3">
+                                <div class="form-group"><label>Hozirgi parol</label><input type="password"
+                                        class="form-control"></div>
+                                <div class="row">
+                                    <div class="col-md-6 form-group"><label>Yangi parol</label><input type="password"
+                                            class="form-control"></div>
+                                    <div class="col-md-6 form-group"><label>Tasdiqlash</label><input type="password"
+                                            class="form-control"></div>
+                                </div>
+                                <button class="save_btn btn-sm">Yangilash</button>
+                            </form>
+                        </div>
+
+                        <div class="security_item">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5><i class="fas fa-mobile-alt mr-2"></i> Ikki bosqichli tekshiruv (2FA)</h5>
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input" id="2faSwitch" checked>
+                                    <label class="custom-control-label" for="2faSwitch"></label>
+                                </div>
+                            </div>
+                            <p class="small text-muted mt-2">Akkauntingizni himoya qilish uchun har gal
+                                kirganingizda SMS kod so'raladi.</p>
+                        </div>
+
+                        <div class="security_item">
+                            <h5><i class="fas fa-history mr-2"></i> Oxirgi kirishlar</h5>
+                            <div class="device_item">
+                                <div>
+                                    <h6>Windows 11 • Chrome</h6>
+                                    <p class="small text-muted mb-0">Farg'ona • Hozir faol</p>
+                                </div>
+                                <span class="badge badge-pill badge-success">Joriy seans</span>
+                            </div>
+                            <div class="device_item">
+                                <div>
+                                    <h6>iPhone 15 Pro • Safari</h6>
+                                    <p class="small text-muted mb-0">Toshkent • 2 soat oldin</p>
+                                </div>
+                                <button class="btn btn-outline-danger btn-sm"
+                                    style="border-radius: 20px;">Chiqish</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+{% endblock account %}

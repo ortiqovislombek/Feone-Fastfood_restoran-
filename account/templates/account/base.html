@@ -1,0 +1,179 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Feone | To'liq Profil</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/account_style.css'%}">
+</head>
+
+<body>
+
+    <button class="theme-btn" id="themeSwitch">
+        <i class="fas fa-moon"></i>
+    </button>
+    <div class="hero_area" style="height: auto; min-height: auto !important; padding: 0; position: relative;">
+        <div class="bg-box" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;">
+            <img src="{% static 'images/hero-bg.jpg' %}" alt=""
+                style="width: 100%; height: 100%; object-fit: cover; object-position: top;">
+        </div>
+
+        <header class="header_section" style="background: transparent; padding: 0;">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg custom_nav-container" style="padding: 20px 0; ">
+                    <a class="navbar-brand" href="/" style="margin: 0;">
+                        <span>Feane</span>
+                    </a>
+
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class=""> </span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mx-auto">
+                            <li class="nav-item {% if request.path == '/' %}active{% endif %}">
+                                <a class="nav-link" href="/">Home</a>
+                            </li>
+                            <li class="nav-item {% if '/menu/' in request.path %}active{% endif %}">
+                                <a class="nav-link" href="{% url 'menu' %}">Menu</a>
+                            </li>
+                            <li class="nav-item {% if '/about/' in request.path %}active{% endif %}">
+                                <a class="nav-link" href="{% url 'about' %}">About</a>
+                            </li>
+                            <li class="nav-item {% if '/book/' in request.path %}active{% endif %}">
+                                <a class="nav-link" href="{% url 'book' %}">Book Table</a>
+                            </li>
+                        </ul>
+
+                        <div class="user_option" style="display: flex; align-items: center;">
+                            <a href="{% url 'profil' %}" class="user_link" style="margin: 0 10px;">
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                            </a>
+                            <a class="cart_link" href="{% url 'orders' %}" style="margin: 0 10px;">
+                                <svg version="1.1" width="20" height="20" viewBox="0 0 456.029 456.029"
+                                    fill="currentColor">
+                                    <path
+                                        d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
+                                    <path
+                                        d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4C457.728,97.71,450.56,86.958,439.296,84.91z" />
+                                    <path
+                                        d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
+                                </svg>
+                            </a>
+                            <form class="form-inline" style="margin: 0 10px;">
+                                <button class="btn my-2 my-sm-0 nav_search-btn" type="submit">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                </button>
+                            </form>
+                            <a href="" class="order_online" style="margin-left: 10px; ">
+                                Order Online
+                            </a>
+
+
+                            <div class="user_option">
+                                {% if user.is_authenticated %}
+                                <a href="{% url 'logout' %}" class="user_link logout-btn" title="Logout">
+                                    <i class="fa fa-sign-out-alt"></i> Logout
+                                </a>
+                                {% else %}
+                                <a href="{% url 'login' %}" class="user_link login-btn" title="Login">
+                                    <i class="fa fa-user"></i> Login
+                                </a>
+                                {% endif %}
+                            </div>
+
+                            <style>
+                               /* ===== Navbar umumiy ===== */
+.navbar {
+    padding: 20px 0;
+}
+
+/* ===== Foydalanuvchi tugmalari ===== */
+.navbar .user_option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* User link (Login / Logout) */
+.navbar .user_option .user_link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    color: #f5f6f6;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+    border: 1px solid #2a2e38;
+}
+
+/* Login tugmasi */
+.navbar .user_option .login-btn {
+    background: linear-gradient(45deg, #ffbe33, #e69b00);
+}
+
+.navbar .user_option .login-btn:hover {
+    background: linear-gradient(45deg, #e69b00, #ffbe33);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(255, 190, 51, 0.5);
+}
+
+/* Logout tugmasi */
+.navbar .user_option .logout-btn {
+    background: linear-gradient(45deg, #ffbe33, #e69b00);
+    color: #0f1116;
+}
+
+.navbar .user_option .logout-btn:hover {
+    box-shadow: 0 5px 12px rgba(255, 190, 51, 0.5);
+    transform: translateY(-2px);
+}
+
+/* Ikonlar */
+.navbar .user_option .user_link i {
+    font-size: 16px;
+}
+
+/* Kichik ekranlar uchun */
+@media (max-width: 768px) {
+    .navbar .user_option .user_link {
+        padding: 8px 14px;
+        font-size: 13px;
+    }
+
+    .navbar .user_option .user_link i {
+        font-size: 14px;
+    }
+}
+
+                            </style>
+
+                        </div>
+
+                    </div>
+
+            </div>
+    </div>
+ 
+
+    {% block account %}
+
+
+
+    {% endblock account %}
+
+
+    <script src="{% static 'js/account_script.js'%}"></script>
+</body>
+
+</html>

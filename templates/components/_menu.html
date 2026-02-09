@@ -31,8 +31,12 @@
         <div class="col-sm-6 col-lg-4 all {{product.category.pk}}">
           <div class="box">
             <div>
-              <div class="img-box">
+              <div class="img-box custom-img">
+                {% if product.image %}
                 <img src="{{product.image.url}}" alt="">
+                {% else %}
+                <img src="https://ih1.redbubble.net/image.4905811472.8675/st,extra_large,507x507-pad,600x600,f8f8f8.jpg" alt="">
+                {% endif %}
               </div>
               <div class="detail-box">
                 <h5>

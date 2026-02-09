@@ -42,7 +42,7 @@
     <div class="container">
       <ol class="carousel-indicators">
         {% for slider in sliders %}
-        <li data-target="#customCarousel1" data-slide-to="{{forloop.counter0}}" {% if forloop.first %} class="active" {% endif %}></li>
+        <li data-target="#customCarousel1" data-slide-to="{{forloop.counter0}}" {% if forloop.first %} class="active" {%endif %}></li>
         {% endfor %}
 
 
@@ -61,10 +61,15 @@
     <div class="container ">
       <div class="row">
         {% for dicount in discounted_products %}
-          <div class="col-md-6  ">
+        <div class="col-md-6  ">
           <div class="box ">
             <div class="img-box">
+              {% if dicount.image %}
               <img src="{{ dicount.image.url }}" alt="">
+              {% else %}
+              <img src="https://ih1.redbubble.net/image.4905811472.8675/st,extra_large,507x507-pad,600x600,f8f8f8.jpg"
+                alt="">
+              {% endif %}
             </div>
             <div class="detail-box">
               <h5>
@@ -132,9 +137,9 @@
             </div>
           </div>
         </div>
-        {% endfor %}
-        
-        
+      {% endfor %}
+
+
       </div>
     </div>
   </div>
@@ -166,24 +171,34 @@
     <div class="carousel-wrap row ">
       <div class="owl-carousel client_owl-carousel">
         {% for feedback in feedbacks %}
-         <div class="item">
-  <div class="box" style="min-height: 320px; display: flex; flex-direction: column; justify-content: space-between;">
-    <div class="detail-box">
-      <p style="min-height: 100px;"> {{ feedback.comment|truncatewords:30 }}
-      </p>
-      <h6 style="margin-top: 15px;">
-        {{ feedback.name }}
-      </h6>
-    </div>
-    <div class="img-box" style="margin-top: 20px;">
-      <img src="{{ feedback.image.url }}" alt="" class="box-img" 
-           style="width: 115px; height: 115px; object-fit: cover; border-radius: 50%; border: 5px solid #ffbe33;">
-    </div>
-  </div>
-</div>
+        <div class="item">
+          <div class="box"
+            style="min-height: 320px; display: flex; flex-direction: column; justify-content: space-between;">
+
+            <div class="detail-box">
+              <p style="min-height: 100px;">
+                {{ feedback.comment|truncatewords:30 }}
+              </p>
+              <h6 style="margin-top: 15px;">
+                {{ feedback.user.username }}
+              </h6>
+            </div>
+
+            <div class="img-box" style="margin-top: 20px;">
+              {% if feedback.user.avatar %}
+              <img src="{{ feedback.user.avatar.url }}" alt="{{ feedback.user.username }}" class="box-img"
+                style="width: 115px; height: 115px; object-fit: cover; border-radius: 50%; border: 5px solid #ffbe33;">
+              {% else %}
+              <img src="{% static 'images/placeholder.png' %}" alt="User" class="box-img"
+                style="width: 115px; height: 115px; object-fit: cover; border-radius: 50%; border: 5px solid #ffbe33;">
+              {% endif %}
+            </div>
+          </div>
+        </div>
         {% endfor %}
-        
-        
+
+
+
       </div>
     </div>
   </div>
