@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: "Poppins", sans-serif; }
+
+/* RANG SOZLAMALARI */
+:root {
+    /* DARK MODE (Default) */
+    --bg-gradient: linear-gradient(135deg, #0f1116, #161920);
+    --wrapper-bg: #161920;
+    --text-main: #ffffff;
+    --text-muted: #cccccc;
+    --input-bg: #0f1116;
+    --input-border: #333333;
+    --gold: #ffbe33;
+    --gold-grad: linear-gradient(to right, #ffbe33, #e69b00);
+    --toggle-text: #161920; /* Oltin fon ustidagi yozuv */
+    --shadow: rgba(0,0,0,0.5);
+}
+
+[data-theme="light"] {
+    /* LIGHT MODE */
+    --bg-gradient: linear-gradient(135deg, #f0f2f5, #ffffff);
+    --wrapper-bg: #ffffff;
+    --text-main: #222831;
+    --text-muted: #666666;
+    --input-bg: #f9f9f9;
+    --input-border: #dddddd;
+    --shadow: rgba(0,0,0,0.15);
+}
+
+body {
+    background: var(--bg-gradient);
+    height: 100vh; display: flex; align-items: center; justify-content: center;
+    transition: background 0.3s ease;
+}
+
+/* Theme Switcher Button */
+.theme-btn {
+    position: absolute; top: 20px; right: 20px;
+    width: 45px; height: 45px; border-radius: 50%;
+    background: var(--wrapper-bg); color: var(--gold);
+    border: 1px solid var(--gold); cursor: pointer;
+    font-size: 1.2rem; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 5px 15px var(--shadow); z-index: 100;
+    transition: 0.3s;
+}
+.theme-btn:hover { background: var(--gold); color: var(--toggle-text); }
+
+.wrapper {
+    position: relative;
+    background: var(--wrapper-bg);
+    border-radius: 20px;
+    box-shadow: 0 15px 40px var(--shadow);
+    width: 800px; max-width: 100%;
+    display: flex; overflow: hidden;
+    border: 1px solid var(--input-border);
+    transition: 0.3s;
+}
+
+.form-container { width: 50%; padding: 40px; z-index: 1; color: var(--text-main); }
+.form-container h2 { margin-bottom: 20px; color: var(--gold); font-size: 2rem; }
+.form-container form { display: flex; flex-direction: column; }
+
+.form-container input { 
+    padding: 12px 15px; margin: 10px 0; 
+    border: 1px solid var(--input-border); border-radius: 10px; 
+    background: var(--input-bg); color: var(--text-main);
+}
+.form-container input:focus { border: 2px solid var(--gold); outline: none; }
+
+.form-container button.submit-btn {
+    margin-top: 15px; padding: 12px; border: none;
+    background: var(--gold-grad);
+    color: var(--toggle-text); font-weight: bold; border-radius: 10px; cursor: pointer;
+    transition: 0.3s ease; text-transform: uppercase;
+}
+.form-container button.submit-btn:hover { opacity: 0.9; transform: scale(1.02); }
+
+/* FEONE TOGGLE (Oltin Rang) */
+.toggle-container {
+    width: 50%; height: 100%;
+    background: var(--gold-grad);
+    color: var(--toggle-text); 
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    padding: 40px; text-align: center;
+    position: absolute; top: 0; left: 0;
+    border-radius: 20px 0 0 20px;
+    z-index: 2;
+
+    transform-origin: left center;
+    transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1),
+                border-radius 0.8s ease-in-out,
+                clip-path 0.8s ease-in-out;
+    clip-path: ellipse(100% 120% at left center);
+}
+
+.wrapper.active .toggle-container {
+    transform: translateX(105%) scale(0.95, 1.05);
+    border-radius: 0 20px 20px 0;
+    clip-path: ellipse(100% 120% at right center);
+}
+
+.toggle-container h2 { margin-bottom: 20px; color: var(--toggle-text); }
+.toggle-container p { margin-bottom: 20px; color: var(--toggle-text); }
+
+.toggle-container button.switch-btn {
+    padding: 8px 25px; background: transparent;
+    border: 2px solid var(--toggle-text); color: var(--toggle-text);
+    border-radius: 10px; font-weight: bold;
+    cursor: pointer; transition: 0.3s ease;
+}
+.toggle-container button.switch-btn:hover { background: rgba(0,0,0,0.1); }
+
+.form-container.signin, .form-container.login { display: block; }
+
+.forgot-password { color: var(--gold); margin-top: 8px; font-size: 0.9rem; cursor: pointer; text-decoration: underline; }
+.accept-terms { margin: 10px 0 0 0; font-size: 0.9rem; user-select: none; color: var(--text-muted); }
+
+/* Social Icons */
+.social-login { display: flex; justify-content: center; margin-top: 25px; gap: 15px; }
+.social-btn { 
+    width: 45px; height: 45px; border-radius: 10px; 
+    background: var(--input-bg); border: 1px solid var(--input-border);
+    display: flex; justify-content: center; align-items: center; 
+    cursor: pointer; transition: 0.3s ease; 
+}
+.social-btn svg { width: 24px; height: 24px; fill: var(--gold); transition: 0.3s; }
+.social-btn:hover { background: var(--gold); }
+.social-btn:hover svg { fill: var(--toggle-text); }
+
+@media screen and (max-width: 768px) {
+    .wrapper { flex-direction: column; height: auto; padding-bottom: 20px; }
+    .form-container, .toggle-container { width: 100%; position: relative; height: auto; }
+    .toggle-container { transform: none !important; clip-path: none; border-radius: 20px 20px 0 0; }
+    .wrapper.active .toggle-container { transform: none !important; border-radius: 20px 20px 0 0; }
+    .form-container { padding: 20px; }
+}

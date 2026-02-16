@@ -1,0 +1,274 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@700&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: "Poppins", sans-serif; }
+
+/* 1. RANG O'ZGARUVCHILARI (Light/Dark Mode uchun) */
+:root {
+    /* DARK MODE (Asosiy) */
+    --bg-color: #0f1116;
+    --card-bg: #161920;
+    --text-main: #ffffff;
+    --text-muted: #a0a0a0;
+    --border-color: #2a2e38;
+    --input-bg: #0f1116;
+    --gold: #ffbe33;
+    --gold-grad: linear-gradient(45deg, #ffbe33, #e69b00);
+    --shadow: rgba(0,0,0,0.5);
+    --hover-bg: rgba(255, 190, 51, 0.05);
+}
+
+[data-theme="light"] {
+    /* LIGHT MODE */
+    --bg-color: #f4f4f4;
+    --card-bg: #ffffff;
+    --text-main: #222831;
+    --text-muted: #666666;
+    --border-color: #dddddd;
+    --input-bg: #f8f9fa;
+    --shadow: rgba(0,0,0,0.1);
+    --hover-bg: rgba(0,0,0,0.05);
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    transition: background 0.3s ease, color 0.3s ease;
+    position: relative; /* Tugma uchun */
+}
+
+.account_section { padding: 80px 0; }
+
+/* 2. LIGHT/DARK TUGMASI */
+.theme-btn {
+    position: absolute;
+    top: 20px; right: 20px;
+    width: 45px; height: 45px;
+    border-radius: 50%;
+    background: var(--card-bg);
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 5px 15px var(--shadow);
+    z-index: 1000;
+    transition: 0.3s;
+}
+.theme-btn:hover { background: var(--gold); color: #161920; }
+
+/* 3. SIDEBAR DIZAYNI */
+.account_sidebar {
+    background-color: var(--card-bg);
+    border-radius: 25px;
+    padding: 40px 20px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 15px 35px var(--shadow);
+    transition: 0.3s;
+}
+
+.img_container { position: relative; width: 140px; margin: 0 auto 20px; }
+.img_container img {
+    width: 140px; height: 140px;
+    border-radius: 50%;
+    border: 3px solid var(--gold);
+    padding: 5px;
+    object-fit: cover;
+    box-shadow: 0 0 20px rgba(255, 190, 51, 0.2);
+}
+
+.account_menu { margin-top: 35px; }
+.account_menu a {
+    display: flex; align-items: center;
+    color: var(--text-muted);
+    padding: 15px 25px;
+    border-radius: 15px;
+    text-decoration: none !important;
+    margin-bottom: 10px;
+    font-weight: 500;
+    transition: 0.4s;
+}
+.account_menu a i { margin-right: 15px; font-size: 18px; width: 25px; text-align: center; }
+
+.account_menu a:hover, .account_menu a.active {
+    background: var(--gold-grad);
+    color: #161920;
+    box-shadow: 0 10px 20px rgba(255, 190, 51, 0.3);
+}
+
+/* 4. CONTENT KARTA DIZAYNI */
+.account_content {
+    background: var(--card-bg);
+    border-radius: 25px;
+    padding: 50px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 15px 35px var(--shadow);
+    transition: 0.3s;
+    min-height: 100%;
+}
+
+.content_box h4 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.2rem;
+    color: var(--gold);
+    margin-bottom: 35px;
+    border-left: 5px solid var(--gold);
+    padding-left: 15px;
+}
+
+/* 5. FORM ELEMENTLARI */
+.form-group label { color: var(--gold); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; font-weight: 600; }
+
+.form-control, .form-select {
+    background-color: var(--input-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    border-radius: 12px;
+    height: 55px;
+    padding: 15px;
+    transition: 0.3s;
+}
+
+.form-control:focus {
+    background-color: var(--input-bg);
+    border-color: var(--gold);
+    color: var(--text-main);
+    box-shadow: 0 0 10px rgba(255, 190, 51, 0.1);
+}
+
+.save_btn {
+    background: var(--gold-grad);
+    color: #161920;
+    border: none;
+    padding: 15px 45px;
+    border-radius: 50px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.save_btn:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(255, 190, 51, 0.4); }
+
+/* 6. BUYURTMALAR JADVALI (Orders Table) */
+.table-responsive { margin-top: 20px; }
+.table { color: var(--text-main); margin-bottom: 0; }
+
+.table thead th {
+    border-bottom: 2px solid var(--gold);
+    color: var(--gold);
+    border-top: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+.table td {
+    vertical-align: middle;
+    border-top: 1px solid var(--border-color);
+    padding: 20px 10px;
+}
+
+.table tbody tr:hover { background-color: var(--hover-bg); }
+
+/* Status Badges */
+.badge { padding: 8px 15px; border-radius: 30px; font-weight: 500; font-size: 0.85rem; }
+.badge-pending { background-color: var(--gold); color: #161920; }
+.badge-delivered { background-color: #28a745; color: #fff; }
+.badge-cancel { background-color: #dc3545; color: #fff; }
+
+/* 7. XAVFSIZLIK (Security) */
+.security_item {
+    background: var(--bg-color); /* Karta ichida ajralib turishi uchun */
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid var(--border-color);
+    border-left: 4px solid var(--gold);
+    margin-bottom: 20px;
+}
+
+.device_item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+.device_item:last-child { border-bottom: none; }
+
+
+/* 8. CHECKOUT SAHIFASI (Yangi qo'shildi va moslashtirildi) */
+
+/* Savat xulosasi (O'ng tomon) */
+.cart_summary_box {
+    background-color: var(--card-bg); /* Dark/Light moslashadi */
+    padding: 30px;
+    border-radius: 25px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 15px 35px var(--shadow);
+}
+
+.cart_summary_box h4 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2rem;
+    color: var(--gold);
+    margin-bottom: 25px;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+.cart_summary_box .list-group-item {
+    background-color: transparent; /* Orqa fon shaffof */
+    color: var(--text-main); /* Matn rangi o'zgaruvchan */
+    border: none;
+    border-bottom: 1px solid var(--border-color);
+    padding: 15px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.cart_summary_box .total_amount {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 2px solid var(--gold);
+}
+
+.cart_summary_box .total_amount h5 {
+    font-weight: 700;
+    color: var(--gold);
+    font-size: 1.2rem;
+}
+
+/* Checkout Formasi uchun maxsus */
+.checkout_form .form-control {
+    margin-bottom: 20px;
+    /* .form-control stilini meros qilib oladi */
+}
+
+.checkout_form label {
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: block;
+}
+
+/* Buyurtma berish tugmasi */
+.btn_box {
+    margin-top: 30px;
+}
+
+.btn_box button {
+    background: var(--gold-grad);
+    color: #161920;
+    border: none;
+    padding: 15px 55px;
+    border-radius: 50px;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 0.3s;
+    width: 100%; /* Mobilga qulay bo'lishi uchun */
+    display: block;
+}
+
+.btn_box button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(255, 190, 51, 0.4);
+}

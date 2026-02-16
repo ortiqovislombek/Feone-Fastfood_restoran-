@@ -1,0 +1,300 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@700&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: "Poppins", sans-serif; }
+
+/* 1. RANG O'ZGARUVCHILARI */
+:root {
+    /* DARK MODE (Asosiy) */
+    --bg-color: #0f1116;
+    --card-bg: #161920;
+    --text-main: #ffffff;
+    --text-muted: #a0a0a0;
+    --border-color: #2a2e38;
+    --input-bg: #0f1116;
+    --gold: #ffbe33;
+    --gold-grad: linear-gradient(45deg, #ffbe33, #e69b00);
+    --shadow: rgba(0,0,0,0.5);
+    --hover-bg: rgba(255, 190, 51, 0.05);
+}
+
+[data-theme="light"] {
+    /* LIGHT MODE */
+    --bg-color: #f4f4f4;
+    --card-bg: #ffffff;
+    --text-main: #222831;
+    --text-muted: #666666;
+    --border-color: #dddddd;
+    --input-bg: #f8f9fa;
+    --shadow: rgba(0,0,0,0.1);
+    --hover-bg: rgba(0,0,0,0.05);
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    transition: background 0.3s ease, color 0.3s ease;
+    position: relative;
+}
+
+.account_section { padding: 80px 0; }
+
+/* 2. LIGHT/DARK TUGMASI */
+.theme-btn {
+    position: absolute;
+    top: 20px; right: 20px;
+    width: 45px; height: 45px;
+    border-radius: 50%;
+    background: var(--card-bg);
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 5px 15px var(--shadow);
+    z-index: 1000;
+    transition: 0.3s;
+}
+.theme-btn:hover { background: var(--gold); color: #161920; }
+
+/* 3. SIDEBAR */
+.account_sidebar {
+    background-color: var(--card-bg);
+    border-radius: 25px;
+    padding: 40px 20px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 15px 35px var(--shadow);
+    transition: 0.3s;
+}
+
+.img_container { position: relative; width: 140px; margin: 0 auto 20px; }
+.img_container img {
+    width: 140px; height: 140px;
+    border-radius: 50%;
+    border: 3px solid var(--gold);
+    padding: 5px;
+    object-fit: cover;
+    box-shadow: 0 0 20px rgba(255, 190, 51, 0.2);
+}
+
+.account_menu { margin-top: 35px; }
+.account_menu a {
+    display: flex; align-items: center;
+    color: var(--text-muted);
+    padding: 15px 25px;
+    border-radius: 15px;
+    text-decoration: none !important;
+    margin-bottom: 10px;
+    font-weight: 500;
+    transition: 0.4s;
+}
+.account_menu a i { margin-right: 15px; font-size: 18px; width: 25px; text-align: center; }
+
+.account_menu a:hover, .account_menu a.active {
+    background: var(--gold-grad);
+    color: #161920;
+    box-shadow: 0 10px 20px rgba(255, 190, 51, 0.3);
+}
+
+/* 4. CONTENT KARTA */
+.account_content {
+    background: var(--card-bg);
+    border-radius: 25px;
+    padding: 50px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 15px 35px var(--shadow);
+    transition: 0.3s;
+    min-height: 100%;
+}
+
+.content_box h4 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.2rem;
+    color: var(--gold);
+    margin-bottom: 35px;
+    border-left: 5px solid var(--gold);
+    padding-left: 15px;
+}
+
+/* 5. FORM ELEMENTLARI (Sahifa uchun) */
+.form-group label { color: var(--gold); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; font-weight: 600; }
+
+.form-control, .form-select {
+    background-color: var(--input-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    border-radius: 12px;
+    height: 55px;
+    padding: 15px;
+    transition: 0.3s;
+}
+
+.form-control:focus {
+    background-color: var(--input-bg);
+    border-color: var(--gold);
+    color: var(--text-main);
+    box-shadow: 0 0 10px rgba(255, 190, 51, 0.1);
+}
+
+.save_btn {
+    background: var(--gold-grad);
+    color: #161920;
+    border: none;
+    padding: 15px 45px;
+    border-radius: 50px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.save_btn:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(255, 190, 51, 0.4); }
+
+/* 6. STATUS BADGES */
+.badge { padding: 8px 15px; border-radius: 30px; font-weight: 500; font-size: 0.85rem; }
+.badge-pending { background-color: var(--gold); color: #161920; }
+.badge-delivered { background-color: #28a745; color: #fff; }
+.badge-cancel { background-color: #dc3545; color: #fff; }
+
+/* 7. MAHSULOTLAR LISTI (Ixcham) */
+.product_item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--input-bg);
+    padding: 15px;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    border: 1px solid var(--border-color);
+    transition: 0.3s;
+}
+
+.product_item:hover {
+    background-color: var(--hover-bg);
+    border-color: var(--gold);
+    transform: translateX(5px);
+}
+
+.list_img_box { width: 60px; height: 60px; flex-shrink: 0; }
+.list_img_box img {
+    width: 100%; height: 100%; object-fit: cover;
+    border-radius: 10px; border: 1px solid var(--border-color);
+}
+
+.list_info .prod_title { font-size: 1rem; font-weight: 600; margin: 0; color: var(--text-main); }
+.list_info .prod_category { font-size: 0.8rem; color: var(--gold); text-transform: uppercase; }
+
+.list_price { min-width: 120px; text-align: right; margin: 0 20px; }
+.list_price span { font-weight: 700; color: var(--text-main); font-size: 1rem; }
+.list_price small { font-size: 0.75rem; }
+
+.list_status { min-width: 100px; text-align: center; margin-right: 20px; }
+
+.list_actions { display: flex; gap: 10px; }
+.btn_icon {
+    width: 40px; height: 40px; border-radius: 10px; border: none;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: 0.3s; font-size: 1rem;
+}
+.btn_icon.edit { background: rgba(255, 190, 51, 0.1); color: var(--gold); border: 1px solid var(--gold); }
+.btn_icon.edit:hover { background: var(--gold); color: #161920; }
+.btn_icon.delete { background: rgba(220, 53, 69, 0.1); color: #dc3545; border: 1px solid #dc3545; }
+.btn_icon.delete:hover { background: #dc3545; color: #fff; }
+
+.add_new_btn {
+    width: 100%; background: transparent; border: 2px dashed var(--gold);
+    color: var(--gold); padding: 15px; border-radius: 15px;
+    font-weight: 600; cursor: pointer; transition: 0.3s; font-size: 1.1rem;
+}
+.add_new_btn:hover { background: rgba(255, 190, 51, 0.1); transform: scale(1.02); }
+
+/* 8. SCROLLBAR (Ro'yxat uchun) */
+.products_list_container {
+    max-height: 500px; overflow-y: auto; padding-right: 10px; margin-bottom: 20px;
+}
+.products_list_container::-webkit-scrollbar { width: 8px; }
+.products_list_container::-webkit-scrollbar-track { background: var(--input-bg); border-radius: 10px; }
+.products_list_container::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
+.products_list_container::-webkit-scrollbar-thumb:hover { background: #e69b00; }
+
+/* ----------------------------------------------------
+   9. PREMIUM DARK MODAL (Har doim Qora/Oltin)
+   Bu stillar sayt Light Mode bo'lsa ham qora bo'ladi
+---------------------------------------------------- */
+
+/* Modal Asosi */
+.custom_modal .modal-content {
+    background-color: #161920 !important; /* Doimiy qora fon */
+    border: 1px solid #333;
+    border-radius: 25px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+    color: #ffffff !important;
+}
+
+/* Modal Header */
+.custom_modal .modal-header {
+    border-bottom: 1px solid #2a2e38;
+    padding: 25px 30px;
+}
+.custom_modal .modal-title {
+    font-family: 'Dancing Script', cursive;
+    color: #ffbe33; /* Oltin rang */
+    font-size: 2rem;
+    letter-spacing: 1px;
+}
+.custom_modal .close {
+    color: #fff; opacity: 0.7; text-shadow: none; outline: none; transition: 0.3s;
+}
+.custom_modal .close:hover {
+    color: #ffbe33; opacity: 1; transform: rotate(90deg);
+}
+
+/* Modal Body */
+.custom_modal .modal-body { padding: 30px; }
+
+/* Modal ichidagi Inputlar (Maxsus Dark Style) */
+.custom_modal .form-control, 
+.custom_modal .form-select {
+    background-color: #0f1116 !important; /* Eng to'q qora */
+    border: 1px solid #2a2e38;
+    color: #ffffff !important;
+    border-radius: 12px;
+    height: 50px;
+}
+
+.custom_modal .form-control::placeholder { color: #555; }
+
+.custom_modal .form-control:focus,
+.custom_modal .form-select:focus {
+    background-color: #0f1116 !important;
+    border-color: #ffbe33; /* Oltin focus */
+    box-shadow: 0 0 15px rgba(255, 190, 51, 0.15);
+}
+
+/* Rasm Yuklash Qutisi */
+.upload_box {
+    background-color: #0f1116;
+    border: 2px dashed #2a2e38;
+    border-radius: 20px; padding: 20px;
+    text-align: center; cursor: pointer;
+    transition: 0.3s; position: relative; overflow: hidden;
+}
+.upload_box:hover { background-color: #1a1d24; border-color: #ffbe33; }
+
+.upload_box img {
+    width: 100%; height: 180px; object-fit: cover;
+    border-radius: 15px; margin-bottom: 15px; border: 1px solid #333;
+}
+
+.upload_btn_styled {
+    display: inline-block; background: #2a2e38; color: #fff;
+    padding: 8px 20px; border-radius: 50px; font-size: 0.85rem; font-weight: 500; transition: 0.3s;
+}
+.upload_box:hover .upload_btn_styled { background: #ffbe33; color: #000; }
+
+/* Switch va Tugmalar */
+.custom-switch .custom-control-label { color: #fff; font-weight: 500; }
+.custom-switch .custom-control-label::before { background-color: #2a2e38; border: none; }
+.custom-switch .custom-control-input:checked ~ .custom-control-label::before { background-color: #ffbe33; }
+
+.btn-secondary { background-color: #2a2e38; border: none; color: #aaa; }
+.btn-secondary:hover { background-color: #333; color: #fff; }

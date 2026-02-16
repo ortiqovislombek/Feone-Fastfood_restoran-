@@ -19,8 +19,7 @@ db.sqlite3-journal
 media/
 staticfiles/
 
-# ===== Static (dev) =====
-static/
+
 
 # ===== Environment =====
 .env

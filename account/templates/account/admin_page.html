@@ -26,7 +26,13 @@
                     <div class="account_sidebar">
                         <div class="text-center">
                             <div class="img_container">
-                                <img src="{{user.avatar.url}}" alt="Admin">
+                                
+                                {% if user.avatar %}
+                                    <img src="{{user.avatar.url}}" alt="Admin">
+                                {% else %}
+                                    <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Admin">
+                                {% endif %}
+                                
                             </div>
                             <h4 class="mt-2">{{user.username}} (Admin)</h4>
                             <p class="small text-muted">

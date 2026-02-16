@@ -48,11 +48,62 @@
                   d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
               </svg>
             </a>
+            {% if request.path == '/menu/' or request.path == '/search/' %}
+
+            <form class="form-inline search-form" method="get" action="{% url 'search' %}" style="margin: 0 10px;">
+
+              <div class="search-box">
+                <input type="text" name="q" placeholder="Qidirish..." class="search-input">
+                <button type="button" class="search-btn">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+                </button>
+              </div>
+
+            </form>
+            <style>
+              .search-box {
+                position: relative;
+                display: flex;
+                align-items: center;
+              }
+
+              .search-input {
+                width: 0;
+                padding: 5px;
+                border: 1px solid #ccc;
+                border-radius: 20px;
+                outline: none;
+                transition: 0.4s ease;
+                opacity: 0;
+              }
+
+              .search-box.active .search-input {
+                width: 180px;
+                opacity: 1;
+                margin-right: 8px;
+              }
+
+              .search-btn {
+                background: none;
+                border: none;
+                cursor: pointer;
+                color: #ffffff;
+                font-size: 18px;
+              }
+            </style>
+            <script>
+              document.querySelector(".search-btn").addEventListener("click", function () {
+                document.querySelector(".search-box").classList.toggle("active");
+              });
+            </script>
+
+            {% else %}
             <form class="form-inline" style="margin: 0 10px;">
               <button class="btn my-2 my-sm-0 nav_search-btn" type="submit">
                 <i class="fa fa-search" aria-hidden="true"></i>
               </button>
             </form>
+            {% endif %}
             <a href="" class="order_online" style="margin-left: 10px; ">
               Order Online
             </a>

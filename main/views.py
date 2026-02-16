@@ -1,9 +1,15 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
-
+from django.db.models import Q
 
 from .models import HeroSlider, Category, Product, Feedback, Order
+
+def search(request: HttpRequest):
+    word=request.GET.get('q')
+    products=Product.objects.filter(Q(title__icontains=word) | Q(description__icontains=word), is_active=True)
+    
+    return render(request,"menu.html",{"products":products})
 
 @login_required(login_url='/account/login/')
 def home(request: HttpRequest):
