@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To'lov muvaffaqiyatli yakunlandi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* CSS uslublari shu yerning o'zida */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8fafb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .payment-card {
+            background: #ffffff;
+            width: 100%;
+            max-width: 400px;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: #4bb543;
+            color: #fff;
+            font-size: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            margin: 0 auto 25px;
+            box-shadow: 0 10px 20px rgba(75, 181, 67, 0.2);
+            animation: scaleCheck 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.3s both;
+        }
+
+        @keyframes scaleCheck {
+            0% { transform: scale(0); }
+            100% { transform: scale(1); }
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+
+        p {
+            color: #7f8c8d;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .details-box {
+            background: #fdfdfd;
+            border: 1px dashed #dcdde1;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .info-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .label { color: #95a5a6; }
+        .value { color: #2d3436; font-weight: 600; }
+
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 12px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: #0984e3;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #0873c4;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #f1f2f6;
+            color: #2f3542;
+        }
+
+        .btn-secondary:hover {
+            background: #dfe4ea;
+        }
+
+        @media print {
+            .btn-group { display: none; }
+            .payment-card { box-shadow: none; border: 1px solid #eee; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="payment-card">
+        <div class="success-icon">
+            <i class="fas fa-check"></i>
+        </div>
+        
+        <h1>To'lov muvaffaqiyatli!</h1>
+        <p>Sizning amalotingiz tasdiqlandi. E'loningiz tez orada faollashadi.</p>
+
+   <div class="details-box">
+    <div class="info-row">
+        <span class="label">Tranzaksiya:</span>
+        <span class="value">#ORDER-{{ order.id }}</span>
+    </div>
+    <div class="info-row">
+        <span class="label">Sana:</span>
+        <span class="value">{{ order.created_at|date:"d.m.Y" }}</span>
+    </div>
+    <div class="info-row">
+        <span class="label">To'langan:</span>
+        <span class="value">${{ order.total_price }}</span>
+    </div>
+</div>
+
+
+        <div class="btn-group">
+            <a href="/" class="btn btn-primary">Bosh sahifaga qaytish</a>
+            <button onclick="window.print()" class="btn btn-secondary">
+                <i class="fas fa-download"></i> Chekni yuklash
+            </button>
+        </div>
+    </div>
+
+</body>
+</html>

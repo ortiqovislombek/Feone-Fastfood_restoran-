@@ -1,10 +1,16 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 from django.http import HttpRequest, HttpResponse
 from django.db.models import Q
+import stripe
+from config import settings
 
 from .models import HeroSlider, Category, Product, Feedback, Order
 
+
+
+
+@login_required(login_url='/account/login/')
 def search(request: HttpRequest):
     word=request.GET.get('q')
     products=Product.objects.filter(Q(title__icontains=word) | Q(description__icontains=word), is_active=True)
@@ -63,7 +69,7 @@ def chekout(request: HttpRequest, pk: int):
         total_price = request.POST.get("total_price")
 
         if payment_method:
-            Order.objects.create(
+            order=Order.objects.create(
                 user=request.user,
                 product=products,
                 full_name=full_name,
@@ -73,6 +79,8 @@ def chekout(request: HttpRequest, pk: int):
                 quantity=int(quantity),
                 total_price=float(total_price),
             )
+            if payment_method == "card":
+                return redirect("payment", order_id=order.id)
         else:
             return render(
                 request,
@@ -97,3 +105,46 @@ def orders(request: HttpRequest):
     }
 
     return render(request, "my_orders.html", context=context)
+
+
+
+
+@login_required(login_url='/account/login/')
+def payment(request, order_id):
+    order = get_object_or_404(Order, id=order_id, user=request.user)
+    domain_url = "http://127.0.0.1:8000"
+
+    try:
+        checkout_session = stripe.checkout.Session.create(
+            payment_method_types=["card"],  
+            line_items=[
+                {
+                    "price_data": {
+                        "currency": "usd",
+                        "product_data": {
+                            "name": order.product.title,
+                        },
+                        "unit_amount": int(order.product.price * 100),
+  
+                    },
+                    "quantity": order.quantity,
+                }
+            ],
+            mode="payment",
+            success_url=domain_url + f"/payment/success/{order.id}/",
+            cancel_url=domain_url + f"/payment/cancel/{order.id}/",
+        )
+        return redirect(checkout_session.url)
+    except Exception as e:
+        return HttpResponse(str(e))
+
+@login_required(login_url='/account/login/')
+def payment_success(request, order_id):
+    order = get_object_or_404(Order, id=order_id, user=request.user)
+    order.status = "yetkazildi"
+    order.save()
+    return render(request, 'payment_success.html', {"order": order})
+
+@login_required(login_url='/account/login/')
+def payment_cancel(request, order_id):
+    return render(request, 'payment_cancel.html')

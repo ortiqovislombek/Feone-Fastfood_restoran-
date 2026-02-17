@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To'lov bekor qilindi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #fff5f5; /* Yengil qizg'ish fon */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .cancel-card {
+            background: #ffffff;
+            width: 100%;
+            max-width: 400px;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(231, 76, 60, 0.1);
+            text-align: center;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .cancel-icon {
+            width: 80px;
+            height: 80px;
+            background: #e74c3c; /* Qizil rang */
+            color: #fff;
+            font-size: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            margin: 0 auto 25px;
+            box-shadow: 0 10px 20px rgba(231, 76, 60, 0.2);
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+
+        p {
+            color: #7f8c8d;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .help-box {
+            background: #fdf2f2;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .help-box ul {
+            list-style: none;
+            font-size: 13px;
+            color: #c0392b;
+        }
+
+        .help-box ul li {
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .help-box ul li i {
+            margin-right: 8px;
+            font-size: 10px;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 12px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: 0.3s;
+            cursor: pointer;
+            border: none;
+            display: inline-block;
+        }
+
+        .btn-retry {
+            background: #e74c3c;
+            color: #fff;
+        }
+
+        .btn-retry:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        .btn-support {
+            background: #f1f2f6;
+            color: #2f3542;
+        }
+
+        .btn-support:hover {
+            background: #dfe4ea;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cancel-card">
+        <div class="cancel-icon">
+            <i class="fas fa-times"></i>
+        </div>
+        
+        <h1>To'lov bekor qilindi</h1>
+        <p>Afsuski, tranzaksiya amalga oshmadi yoki siz tomoningizdan to'xtatildi.</p>
+
+        <div class="help-box">
+            <ul>
+                <li><i class="fas fa-circle"></i> Karta ma'lumotlarini tekshiring</li>
+                <li><i class="fas fa-circle"></i> Balansda yetarli mablag' borligini ko'ring</li>
+                <li><i class="fas fa-circle"></i> Internet aloqasini tekshiring</li>
+            </ul>
+        </div>
+
+        <div class="btn-group">
+            <a href="/checkout" class="btn btn-retry">Qaytadan urinib ko'rish</a>
+            <a href="/support" class="btn btn-support">Yordam markazi</a>
+        </div>
+    </div>
+
+</body>
+</html>
